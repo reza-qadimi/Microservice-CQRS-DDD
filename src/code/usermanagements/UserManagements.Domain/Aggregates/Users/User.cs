@@ -62,7 +62,7 @@ public class User : Framework.Domain.Entity<System.Guid>
 	// **********
 
 	// **********
-	public Enumerations.UserType Role { get; set; }
+	public ValueObjects.UserType Role { get; set; }
 	// **********
 
 	// **********
