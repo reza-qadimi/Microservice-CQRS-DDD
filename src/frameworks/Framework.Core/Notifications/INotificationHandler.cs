@@ -1,7 +1,7 @@
 ﻿namespace Framework.Core.Notifications;
 
-public interface INotificationHandler<T> where T : INotification
+public interface INotificationHandler<I> where I : INotification
 {
-	System.Threading.Tasks.Task HandleAsync(T notification);
+	System.Threading.Tasks.Task HandleAsync(I notification);
 }
 
