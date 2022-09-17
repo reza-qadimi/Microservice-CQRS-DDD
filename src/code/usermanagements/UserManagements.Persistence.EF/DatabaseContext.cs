@@ -1,4 +1,6 @@
-﻿namespace UserManagements.Persistence.EF;
+﻿using UserManagements.Persistence.EF.Aggregates.Users.Configurations;
+
+namespace UserManagements.Persistence.EF;
 
 internal class DatabaseContext : Microsoft.EntityFrameworkCore.DbContext
 {
@@ -13,6 +15,6 @@ internal class DatabaseContext : Microsoft.EntityFrameworkCore.DbContext
 		(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder)
 	{
 		modelBuilder.ApplyConfigurationsFromAssembly
-			(typeof(Aggregates.Users.UserConfiguration).Assembly);
+			(typeof(UserConfiguration).Assembly);
 	}
 }
