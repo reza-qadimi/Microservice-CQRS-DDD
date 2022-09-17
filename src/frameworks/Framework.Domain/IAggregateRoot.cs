@@ -2,7 +2,10 @@
 
 public interface IAggregateRoot<TKey> : IEntity<TKey>
 {
-	void ClearUncommittedEvents();
+	void ClearDomainEvents();
+
+	//System.Collections.Generic.IReadOnlyList
+	//	<IDomainEvent<TKey>> DomainEvents { get; }
 
 	System.Collections.Generic.IReadOnlyList
 		<IDomainEvent<TKey>> GetUncommittedEvents();
