@@ -10,6 +10,7 @@
 	  <ProjectReference Include="..\..\..\frameworks\Framework.Core\Framework.Core.csproj" />
 	  <ProjectReference Include="..\..\..\frameworks\Framework.Domain\Framework.Domain.csproj" />
 	  <ProjectReference Include="..\..\..\frameworks\Framework.Persistence\Framework.Persistence.csproj" />
+	  <ProjectReference Include="..\..\..\frameworks\Framework.Utility\Framework.Utility.csproj" />
 	</ItemGroup>
 
 </Project>

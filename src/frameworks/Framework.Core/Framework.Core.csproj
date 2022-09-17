@@ -6,8 +6,4 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\..\..\Framework.Utility\Framework.Utility.csproj" />
-	</ItemGroup>
-
 </Project>
