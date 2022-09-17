@@ -1,19 +1,34 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UserManagements.Domain.Aggregates.Users;
 
 namespace UserManagements.Persistence.EF.Aggregates.Users.Configurations;
 
 internal class UserConfiguration :
-	Microsoft.EntityFrameworkCore.IEntityTypeConfiguration<User>
+	Microsoft.EntityFrameworkCore.IEntityTypeConfiguration<Domain.Aggregates.Users.User>
 {
 	public UserConfiguration() : base()
 	{
 	}
 
 	public void Configure
-		(Microsoft.EntityFrameworkCore.Metadata.Builders
-		.EntityTypeBuilder<User> builder)
+		(Microsoft.EntityFrameworkCore.Metadata
+		.Builders.EntityTypeBuilder<Domain.Aggregates.Users.User> builder)
 	{
+		// **************************************************
+		builder
+			.HasKey(p => p.Id)
+			.IsClustered(clustered: true)
+			;
+		// **************************************************
+
+		// **************************************************
+		builder
+			.Property(p => p.Id)
+			.IsRequired(required: true)
+			.HasConversion(p => p.Value,
+				p => Domain.Aggregates.Users.ValueObjects.Id.Create(p).Value)
+			;
+		// **************************************************
+
 		// **************************************************
 		builder
 			.Property(p => p.Username)
