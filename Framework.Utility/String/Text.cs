@@ -1,12 +1,12 @@
 ﻿namespace Framework.Utility.String;
 
-public static class Fix : object
+public static class Text : object
 {
-	static Fix()
+	static Text()
 	{
 	}
 
-	public static string? FixText(string? value)
+	public static string? Fix(string? value)
 	{
 		if (value == null)
 		{

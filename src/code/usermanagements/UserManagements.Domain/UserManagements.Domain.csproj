@@ -7,11 +7,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\frameworks\Framework.Core\Framework.Core.csproj" />
 	  <ProjectReference Include="..\..\..\frameworks\Framework.Domain\Framework.Domain.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="SharedKernel\" />
+	  <ProjectReference Include="..\..\..\frameworks\Framework.Persistence\Framework.Persistence.csproj" />
 	</ItemGroup>
 
 </Project>

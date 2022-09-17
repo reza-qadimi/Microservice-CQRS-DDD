@@ -1,71 +1,112 @@
 ﻿namespace UserManagements.Domain.Aggregates.Users;
 
-// TODO: Implementing Domain-Driven Design
-public class User : Framework.Domain.Entity<System.Guid>
+public class User : Framework.Domain.Entity<ValueObjects.Id>
 {
-	#region Constant(s)
-	public const byte NameMaxLength = 50;
-
-	public const byte UsernameMaxLength = 20;
-
-	public const byte PasswordMaxLength = 64;
-
-	public const byte NationalCodeFixedLength = 10;
-
-	public const byte EmailAddressMaxLength = 254;
-
-	public const byte CellPhoneNumberFixedLength = 11;
-	#endregion /Constant(s)
-
-	public User(string username, string password) : base()
+	#region Static Member(s)
+	public static
+		CustomResult.Result<User>
+		Create(string username, string password,
+		string emailAddress, string cellPhoneNumber,
+		bool? isActive, bool? isIPRestricted, int? type,
+		int? gender, string firstName, string lastName, string description)
 	{
+		var result =
+			new CustomResult.Result<User>();
+
+		// **************************************************
+		var usernameResult =
+			ValueObjects.Username.Create(value: username);
+
+		result.WithErrors
+			(errorMessages: usernameResult.Errors);
+		// **************************************************
+
+		// **************************************************
+		var passwordResult =
+			ValueObjects.Password.Create(value: password);
+
+		result.WithErrors
+			(errorMessages: passwordResult.Errors);
+		// **************************************************
+
+		// **************************************************
+		var isActiveResult =
+			SharedKernel.IsActive.Create(value: isActive);
+
+		result.WithErrors
+			(errorMessages: isActiveResult.Errors);
+		// **************************************************
+
+		// **************************************************
+		var roleResult =
+			ValueObjects.Role.GetByValue(value: type);
+
+		result.WithErrors
+			(errorMessages: roleResult.Errors);
+		// **************************************************
+
+		// **************************************************
+		var fullNameResult =
+			SharedKernel.FullName.Create
+			(firstName: firstName, lastName: lastName);
+
+		result.WithErrors
+			(errorMessages: fullNameResult.Errors);
+		// **************************************************
+
+		if (result.IsSuccess == false)
+		{
+			return result;
+		}
+
+		var returnValue = new User
+			(role: roleResult.Value,
+			username: usernameResult.Value,
+			password: passwordResult.Value,
+			isActive: isActiveResult.Value,
+			fullName: fullNameResult.Value);
+
+		result.WithValue(value: returnValue);
+
+		return result;
+	}
+	#endregion /Static Member(s)
+
+	private User() : base()
+	{
+	}
+
+	private User
+		(ValueObjects.Role role,
+		ValueObjects.Username username,
+		ValueObjects.Password password,
+		SharedKernel.IsActive isActive,
+		SharedKernel.FullName fullName) : this()
+	{
+		Role = role;
+		FullName = fullName;
 		Username = username;
-
-		// TODO: HASH
 		Password = password;
-
-		Id = System.Guid.NewGuid();
-
-		InsertDateTime = System.DateTime.Now;
+		IsActive = isActive;
 	}
 
 	// **********
-	public bool IsActive { get; set; }
+	public SharedKernel.IsActive IsActive { get; set; }
 	// **********
 
 	// **********
-	public string? FirstName { get; set; }
+	public SharedKernel.FullName FullName { get; set; }
 	// **********
 
 	// **********
-	public string? LastName { get; set; }
+	public ValueObjects.Password Password { get; set; }
 	// **********
 
 	// **********
-	public string Password { get; set; }
+	public ValueObjects.Username Username { get; set; }
 	// **********
 
 	// **********
-	public string Username { get; set; }
-	// **********
-
-	// **********
-	public string? Description { get; set; }
-	// **********
-
-	// **********
-	public string? EmailAddress { get; set; }
-	// **********
-
-	// **********
-	public string? CellPhoneNumber { get; set; }
-	// **********
-
-	// **********
-	public ValueObjects.UserType Role { get; set; }
-	// **********
-
-	// **********
-	public System.DateTime InsertDateTime { get; set; }
+	public ValueObjects.Role Role { get; set; }
 	// **********
 }

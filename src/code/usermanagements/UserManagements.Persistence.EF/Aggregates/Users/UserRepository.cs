@@ -5,7 +5,7 @@ using UserManagements.Domain.Aggregates.Users;
 namespace UserManagements.Persistence.EF.Aggregates.Users;
 
 public class UserRepository :
-	Commands.Repository<User, System.Guid>, IUserRepository
+	Commands.Repository<User, Domain.Aggregates.Users.ValueObjects.Id>, IUserRepository
 {
 	internal UserRepository(DatabaseContext databaseContext) : base(databaseContext: databaseContext)
 	{
@@ -35,7 +35,7 @@ public class UserRepository :
 
 		var foundAny =
 			await DbSet
-			.Where(current => current.Username.ToLower() == username.ToLower())
+			//.Where(current => current.Username.ToLower() == username.ToLower())
 			.AnyAsync();
 
 		return foundAny;

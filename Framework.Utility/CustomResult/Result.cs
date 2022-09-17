@@ -1,8 +1,8 @@
-﻿namespace Response;
+﻿namespace CustomResult;
 
-public class Rezult : object
+public class Result : object
 {
-	public Rezult() : base()
+	public Result() : base()
 	{
 		IsSuccess = true;
 
@@ -47,7 +47,7 @@ public class Rezult : object
 	{
 		successMessage =
 			Framework.Utility.String
-			.Fix.FixText(value: successMessage);
+			.Text.Fix(value: successMessage);
 
 		if (string.IsNullOrWhiteSpace(value: successMessage))
 		{
@@ -77,7 +77,7 @@ public class Rezult : object
 
 		errorMessage =
 			Framework.Utility.String
-			.Fix.FixText(value: errorMessage);
+			.Text.Fix(value: errorMessage);
 
 		if (string.IsNullOrWhiteSpace(value: errorMessage))
 		{
@@ -105,7 +105,7 @@ public class Rezult : object
 	{
 		message =
 			Framework.Utility.String
-			.Fix.FixText(value: message);
+			.Text.Fix(value: message);
 
 		if (string.IsNullOrWhiteSpace(value: message))
 		{
@@ -130,9 +130,9 @@ public class Rezult : object
 	}
 }
 
-public class Rezult<T> : Rezult
+public class Result<T> : Result
 {
-	public Rezult() : base()
+	public Result() : base()
 	{
 	}
 
