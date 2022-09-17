@@ -72,6 +72,55 @@ public class Password : SeedWork.ValueObject
 
 		return result;
 	}
+
+	public static CustomResult.Result<Password> CreateWithoutHashing(string value)
+	{
+		var result =
+			new CustomResult.Result<Password>();
+
+		value =
+			value?.Trim();
+
+		if (value is null)
+		{
+			var errorMessage = string.Empty;
+
+			result.WithError
+				(errorMessage: errorMessage);
+
+			return result;
+		}
+
+		if (value.Length < LengthInDatabase)
+		{
+			var errorMessage = string.Empty;
+
+			result.WithError
+				(errorMessage: errorMessage);
+
+
+			return result;
+		}
+
+		if (value.Length > LengthInDatabase)
+		{
+			var errorMessage = string.Empty;
+
+			result.WithError
+				(errorMessage: errorMessage);
+
+
+			return result;
+		}
+
+		var returnValue =
+			new Password(value: value);
+
+		result.WithValue(value: returnValue);
+
+		return result;
+	}
+
 	#endregion /Static Member(s)
 
 	private Password() : base()
